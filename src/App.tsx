@@ -6,12 +6,6 @@ import AddItemForm from "./AddItemForm";
 import { AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 
-// GUI
-// CLI - command line interface
-// C - create
-// R - read
-// U - update
-// D - delete
 export type FilterValuesType = "all" | "active" | "completed"
 
 export type TodoListType = {
@@ -25,7 +19,7 @@ export type TaskStateType = {
 }
 
 function App() {
-    // BLL:
+
     const todoListID_1 = v1()
     const todoListID_2 = v1()
 
@@ -38,7 +32,7 @@ function App() {
     const [tasks, setTasks] = useState<TaskStateType>({
         [todoListID_1]: [
             { id: v1(), title: "HTML", isDone: true },
-            { id: v1(), title: "CSS", isDone: true },// true -> false
+            { id: v1(), title: "CSS", isDone: true },
             { id: v1(), title: "JS/TS", isDone: false },
         ],
         [todoListID_2]: [
