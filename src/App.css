@@ -1,4 +1,4 @@
-.App {
+/* .App {
   padding: 30px;
   display: flex;
 }
@@ -10,10 +10,7 @@
 .active-filter {
   background-color: cornflowerblue;
 }
-.is-done {
-  opacity: 0.5;
-  font-weight: bold;
-}
+
 .error {
   border: 2px solid red;
   outline: none;
@@ -22,4 +19,9 @@
 .error-message {
   color: red;
   font-weight: bold;
+} */
+
+.is-done {
+    opacity: 0.5;
+    font-weight: bold;
 }
