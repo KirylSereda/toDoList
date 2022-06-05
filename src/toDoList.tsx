@@ -9,7 +9,6 @@ import {
     IconButton,
     List, ListItem
 } from "@material-ui/core";
-import { DeleteOutline } from "@material-ui/icons";
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 type TodoListPropsType = {
