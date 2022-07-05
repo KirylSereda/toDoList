@@ -1,6 +1,6 @@
 import { v1 } from 'uuid';
-import { TasksStateType } from '../Components/AppWitchRedux';
-import { TaskType } from '../toDoList';
+import { TasksStateType } from '../AppWitchRedux';
+import { TaskType } from '../TodolistWithTasks';
 import { AddTodolistActionType, RemoveTodolistActionType } from './todolists-reducer';
 
 export type RemoveTaskActionType = {
@@ -56,22 +56,24 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         }
         case 'CHANGE-TASK-STATUS': {
             let todolistTasks = state[action.todolistId];
-            // найдём нужную таску:
-            let task = todolistTasks.find((t) => t.id === action.taskId);
+            let newTaskArray = todolistTasks.map((t) => (t.id == action.taskId ? { ...t, isDone: action.isDone } : t));
+            // let task = todolistTasks.find((t) => t.id === action.taskId);
             //изменим таску, если она нашлась
-            if (task) {
-                task.isDone = action.isDone;
-            }
+            // if (task) {
+            //     task.isDone = action.isDone;
+            // }
+            state[action.todolistId] = newTaskArray;
             return { ...state };
         }
         case 'CHANGE-TASK-TITLE': {
             let todolistTasks = state[action.todolistId];
             // найдём нужную таску:
-            let task = todolistTasks.find((t) => t.id === action.taskId);
+            let newTaskArray = todolistTasks.map((t) => (t.id == action.taskId ? { ...t, title: action.title } : t));
             //изменим таску, если она нашлась
-            if (task) {
-                task.title = action.title;
-            }
+            // if (task) {
+            //     task.title = action.title;
+            // }
+            state[action.todolistId] = newTaskArray;
             return { ...state };
         }
         case 'ADD-TODOLIST': {

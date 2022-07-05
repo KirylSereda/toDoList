@@ -1,29 +1,35 @@
 import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
-import { Button, IconButton, TextField } from "@material-ui/core";
+import { IconButton, TextField } from "@material-ui/core";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
 }
 
-const AddItemForm = (props: AddItemFormPropsType) => {
+const AddItemForm = React.memo((props: AddItemFormPropsType) => {
     const [title, setTitle] = useState<string>("")
-    const [error, setError] = useState<boolean>(false)
+    const [error, setError] = useState<null | string>(null)
+
     const onChangeSetTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
-        if (error) setError(false)
+        if (error) setError('')
     }
     const onClickAddItem = () => {
         const trimmedTitle = title.trim()
         if (trimmedTitle) {
             props.addItem(trimmedTitle)
         } else {
-            setError(true)
+            setError('error')
         }
         setTitle("")
     }
     const onKeyPressAddItem = (e: KeyboardEvent<HTMLInputElement>) => {
-        e.key === "Enter" && onClickAddItem()
+        if (error !== null) {
+            setError(null)
+        }
+        if (e.key == 'Enter') {
+            onClickAddItem()
+        }
     }
 
     return (
@@ -35,18 +41,18 @@ const AddItemForm = (props: AddItemFormPropsType) => {
                 onChange={onChangeSetTitle}
                 onKeyPress={onKeyPressAddItem}
                 label={'Title'}
-                error={error}
                 helperText={error && 'Title is required!'}
             />
             <IconButton
                 size={"medium"}
                 color={"primary"}
                 onClick={onClickAddItem}>
-                <AddCircleOutlineIcon />
+                <AddCircleOutlineIcon />!
             </IconButton>
 
         </div>
     );
-};
+}
+)
 
 export default AddItemForm;

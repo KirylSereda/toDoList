@@ -1,5 +1,5 @@
 import { v1 } from 'uuid';
-import { FilterValuesType, TodoListType } from '../Components/AppWitchRedux';
+import { FilterValuesType, TodoListType } from '../AppWitchRedux';
 
 export type RemoveTodolistActionType = {
     type: 'REMOVE-TODOLIST';
@@ -34,7 +34,14 @@ export const todolistsReducer = (state: Array<TodoListType> = initialState, acti
             return [...state, { id: action.todolistId, title: action.title, filter: 'all' }];
         }
         case 'CHANGE-TODOLIST-TITLE': {
-            return state.map((tl) => (tl.id === action.id ? { ...tl, title: action.title } : tl));
+            return state.map((tl) => (tl.id == action.id ? { ...tl, title: action.title } : tl));
+
+            // const todolist = state.find(tl => tl.id === action.id);
+            // if (todolist) {
+            //     // если нашёлся - изменим ему заголовок
+            //     todolist.title = action.title;
+            // }
+            // return [...state]
         }
         case 'CHANGE-TODOLIST-FILTER': {
             return state.map((tl) => (tl.id === action.id ? { ...tl, filter: action.filter } : tl));
