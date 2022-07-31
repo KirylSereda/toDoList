@@ -1,9 +1,10 @@
-import { TaskStateType } from "../App";
+
+import { TasksStateType } from "../AppWitchRedux";
 import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from "./tasks-reducer";
 import { tasksReducer } from "./tasks-reducer";
 import { AddTodolistAC, RemoveTodolistAC } from "./todolists-reducer";
 
-let startState: TaskStateType
+let startState: TasksStateType
 
 beforeEach(() => {
   startState = {

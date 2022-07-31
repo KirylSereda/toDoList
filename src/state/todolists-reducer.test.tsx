@@ -6,7 +6,8 @@ import {
     todolistsReducer
 } from './todolists-reducer';
 import { v1 } from 'uuid';
-import { FilterValuesType, TodoListType } from '../App';
+import { FilterValuesType, TodoListType } from '../AppWitchRedux';
+
 
 let todolistId1: string;
 let todolistId2: string;
@@ -68,7 +69,7 @@ test('correct filter of todolist should be changed', () => {
     let todolistId1 = v1();
     let todolistId2 = v1();
 
-    let newFilter: FilterValuesType = "completed";
+    let newFilter: FilterValuesType= "completed";
 
     const startState: Array<TodoListType> = [
         { id: todolistId1, title: "What to learn", filter: "all" },
