@@ -47,7 +47,7 @@ const AddItemForm = React.memo((props: AddItemFormPropsType) => {
                 size={"medium"}
                 color={"primary"}
                 onClick={onClickAddItem}>
-                <AddCircleOutlineIcon />!
+                <AddCircleOutlineIcon />
             </IconButton>
 
         </div>

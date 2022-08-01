@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
 import { store } from './state/store';
-import { AppWitchRedux } from './AppWitchRedux';
+import { App } from './App';
 
 
 ReactDOM.render(
     <Provider store={store}>
-        <AppWitchRedux />
+        <App />
     </Provider>
     , document.getElementById('root'));
 

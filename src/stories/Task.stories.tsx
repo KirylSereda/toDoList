@@ -1,7 +1,7 @@
-
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { action } from '@storybook/addon-actions'
-import { Task } from '../Task';
+import { Task } from '../components/Task/Task';
+
 
 export default {
     title: 'toDolist/TaskWitchLocalState',
@@ -13,12 +13,24 @@ export default {
     }
 } as ComponentMeta<typeof Task>;
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 const Template: ComponentStory<typeof Task> = (args) => <Task {...args} />;
 
 export const TaskStories = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
+
 TaskStories.args = {
-    task: { id: 'sd', isDone: true, title: 'Js' }
+    task: {
+        id: '2',
+        title: 'react',
+        description: '5564',
+        todoListId: '3',
+        order: 2,
+        status: 3,
+        priority: 4,
+        startDate: '5564',
+        deadline: '5564',
+        addedDate: '26.02.22',
+
+    },
 };
 

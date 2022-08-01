@@ -1,5 +1,5 @@
 import TextField from '@material-ui/core/TextField';
-import React, { ChangeEvent, KeyboardEvent, useMemo, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
 
 type EditableSpanPropsType = {
     title: string

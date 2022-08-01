@@ -1,8 +1,8 @@
-
+import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { action } from '@storybook/addon-actions'
-import { Task } from '../Task';
 import { useState } from 'react';
+import { Task } from '../components/Task/Task';
 
 export default {
     title: 'toDolist/TaskWitchLocalState',
@@ -14,20 +14,30 @@ export default {
 } as ComponentMeta<typeof Task>;
 
 const TaskWitchLocalState = () => {
-    let [task, setTask] = useState({ id: 'dsds', title: 'Js', isDone: false })
+    let [task, setTask] = useState({
+        id: '2',
+        title: 'react',
+        description: '5564',
+        todoListId: '3',
+        order: 2,
+        status: 3,
+        priority: 4,
+        startDate: '5564',
+        deadline: '5564',
+        addedDate: '26.02.22',
 
-    const changeTaskStatus = () => setTask({ ...task, isDone: !task.isDone })
-    const changeTaskTitle = (taskId: string, title: string) => setTask({ ...task, title })
+    })
 
-    return <Task key='sdd' changeTaskStatus={changeTaskStatus} changeTaskTitle={changeTaskTitle} removeTask={action('Remove Task')} task={task} todolistId={'dsda'} />
+    const changeTaskStatus = () => setTask({ ...task })
+    const changeTaskTitle = (title: string) => setTask({ ...task, title })
+
+    return <Task key='sdd' changeTaskStatus={changeTaskStatus} changeTaskTitle={changeTaskTitle} removeTask={action('Remove Task')} task={task} todoListId={'dsda'} />
 }
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+
 const Template: ComponentStory<typeof TaskWitchLocalState> = (args) => <TaskWitchLocalState />;
 
 export const TaskWitchLocalStateStories = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 TaskWitchLocalStateStories.args = {
-
 };
 

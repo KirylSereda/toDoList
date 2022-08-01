@@ -1,11 +1,9 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { todolistAPI } from '../api/todolist-api'
 
 export default {
     title: 'API'
 }
-
 
 export const GetTodolists = () => {
     const [state, setState] = useState<any>(null)
@@ -16,7 +14,6 @@ export const GetTodolists = () => {
 
                 setState(res.data);
             })
-
     }, [])
 
     return <div> {JSON.stringify(state)}</div>
@@ -89,9 +86,16 @@ export const UpdateTaskTitle = () => {
     const [state, setState] = useState<any>(null)
     const todolistId = '3924845b-94c1-44a2-8643-2a9d6ed4c116';
     const idTask = '31632f42-f27e-4147-a3b8-d17af0227f05'
-    let title = 'test'
+    let model = {
+        title: '5',
+        description: '5',
+        status: 5,
+        priority: 5,
+        startDate: '5',
+        deadline: '5'
+    }
     useEffect(() => {
-        todolistAPI.updateTask(todolistId, idTask, title)
+        todolistAPI.updateTask(todolistId, idTask, model)
             .then((res) => {
                 console.log(res)
                 setState(res.data);
