@@ -1,4 +1,4 @@
-
+// @ts-ignore
 export const go = 2
 // import { TasksStateType } from "../App";
 // import { addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC } from "./tasks-reducer";

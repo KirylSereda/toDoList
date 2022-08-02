@@ -36,11 +36,11 @@ export const todolistAPI = {
   },
 };
 
-type GetTasksResponseType = {
-  error: string | null;
-  items: TaskType[];
-  totalCount: number;
-};
+// type GetTasksResponseType = {
+//   error: string | null;
+//   items: TaskType[];
+//   totalCount: number;
+// };
 
 type BaseResponseType<T = {}> = {
   resultCode: number;

@@ -27,7 +27,7 @@ const AddItemForm = React.memo((props: AddItemFormPropsType) => {
         if (error !== null) {
             setError(null)
         }
-        if (e.key == 'Enter') {
+        if (e.key === 'Enter') {
             onClickAddItem()
         }
     }

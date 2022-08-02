@@ -30,7 +30,7 @@ export const TodolistWithTasks = React.memo((props: PropsType) => {
     let dispatch = useDispatch()
     useEffect(() => {
         dispatch(fetchTasksTC(props.id))
-    }, [])
+    }, [dispatch, props.id])
 
     const changeFilter = (filter: FilterValuesType) => {
         return () => props.changeTodoListFilter(filter, props.id)
