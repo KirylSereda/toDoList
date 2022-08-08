@@ -1,6 +1,6 @@
 import { v1 } from "uuid";
 import { TaskType } from "../api/todolist-api";
-import { TasksStateType, TodolistType } from "../App";
+import { TasksStateType, TodolistType } from "../components/App/App";
 import { addTaskAC, removeTaskAC, updateTaskAC } from "./tasks-reducer";
 import { tasksReducer } from "./tasks-reducer";
 import { AddTodolistAC, RemoveTodolistAC } from "./todolists-reducer";

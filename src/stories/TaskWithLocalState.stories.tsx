@@ -1,4 +1,3 @@
-import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { action } from '@storybook/addon-actions'
 import { useState } from 'react';
@@ -33,7 +32,6 @@ const TaskWitchLocalState = () => {
 
     return <Task key='sdd' changeTaskStatus={changeTaskStatus} changeTaskTitle={changeTaskTitle} removeTask={action('Remove Task')} task={task} todoListId={'dsda'} />
 }
-
 
 const Template: ComponentStory<typeof TaskWitchLocalState> = (args) => <TaskWitchLocalState />;
 

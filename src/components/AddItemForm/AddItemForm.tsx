@@ -3,6 +3,7 @@ import { IconButton, TextField } from "@material-ui/core";
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
 type AddItemFormPropsType = {
+    disabled?: boolean
     addItem: (title: string) => void
 }
 
@@ -42,11 +43,14 @@ const AddItemForm = React.memo((props: AddItemFormPropsType) => {
                 onKeyPress={onKeyPressAddItem}
                 label={'Title'}
                 helperText={error && 'Title is required!'}
+                disabled={props.disabled}
             />
             <IconButton
                 size={"medium"}
                 color={"primary"}
-                onClick={onClickAddItem}>
+                onClick={onClickAddItem}
+                disabled={props.disabled}
+            >
                 <AddCircleOutlineIcon />
             </IconButton>
 

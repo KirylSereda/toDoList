@@ -1,6 +1,9 @@
+import { AxiosError } from "axios";
 import { Dispatch } from "redux";
 import { TaskPriorities, TaskStatuses, TaskType, todolistAPI } from "../api/todolist-api";
-import { TasksStateType } from "../App";
+import { TasksStateType } from "../components/App/App";
+import { AppActionsType, setAppStatusAC, setErrorAC } from "../components/App/app-reducer";
+import { handleServerAppError, handleServerNetworkError } from "../utils/error-utils";
 import { AppRootStateType } from "./store";
 import { AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType } from "./todolists-reducer";
 
@@ -9,14 +12,15 @@ export type ChangeTaskStatusActionType = ReturnType<typeof updateTaskAC>;
 export type SetTasksActionType = ReturnType<typeof setTasksAC>;
 export type AddTaskActionType = ReturnType<typeof addTaskAC>;
 
-type ActionsType =
+export type ActionsType =
   | RemoveTaskActionType
   | AddTaskActionType
   | ChangeTaskStatusActionType
   | AddTodolistActionType
   | RemoveTodolistActionType
   | SetTodolistsActionType
-  | SetTasksActionType;
+  | SetTasksActionType
+  | AppActionsType;
 
 const initialState: TasksStateType = {};
 
@@ -91,26 +95,42 @@ export const addTaskAC = (task: TaskType) => {
 
 export const fetchTasksTC = (todolistId: string) => {
   return (dispatch: Dispatch) => {
+    dispatch(setAppStatusAC("loading"));
     todolistAPI.getTasks(todolistId).then((res) => {
       dispatch(setTasksAC(res.data.items, todolistId));
+      dispatch(setAppStatusAC("succeeded"));
     });
   };
 };
 
 export const createTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
-  todolistAPI.createTask(todolistId, title).then((res) => {
-    dispatch(addTaskAC(res.data.data.item));
-  });
+  dispatch(setAppStatusAC("loading"));
+  todolistAPI
+    .createTask(todolistId, title)
+    .then((res) => {
+      if (res.data.resultCode === 0) {
+        dispatch(addTaskAC(res.data.data.item));
+        dispatch(setAppStatusAC("succeeded"));
+      } else {
+        handleServerAppError(res.data, dispatch);
+      }
+    })
+    .catch((error: AxiosError) => {
+      handleServerNetworkError(error.message, dispatch);
+    });
 };
 
 export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: Dispatch) => {
+  dispatch(setAppStatusAC("loading"));
   todolistAPI.deleteTask(todolistId, taskId).then((res) => {
     dispatch(removeTaskAC(taskId, todolistId));
+    dispatch(setAppStatusAC("succeeded"));
   });
 };
 
 export const updateTaskTC = (taskId: string, todolistId: string, model: UpdateDomainTaskModelType) => {
   return (dispatch: Dispatch, getState: () => AppRootStateType) => {
+    dispatch(setAppStatusAC("loading"));
     const allTasksFromState = getState().tasks;
     const tasksForCurrentTodolist = allTasksFromState[todolistId];
     const task = tasksForCurrentTodolist.find((t) => t.id === taskId);
@@ -126,9 +146,17 @@ export const updateTaskTC = (taskId: string, todolistId: string, model: UpdateDo
           status: task.status,
           ...model,
         })
-        .then(() => {
-          const action = updateTaskAC(taskId, model, todolistId);
-          dispatch(action);
+        .then((res) => {
+          if (res.data.resultCode === 0) {
+            const action = updateTaskAC(taskId, model, todolistId);
+            dispatch(action);
+            dispatch(setAppStatusAC("succeeded"));
+          } else {
+            handleServerAppError(res.data, dispatch);
+          }
+        })
+        .catch((error: AxiosError) => {
+          handleServerNetworkError(error.message, dispatch);
         });
     }
   };

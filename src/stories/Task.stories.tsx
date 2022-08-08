@@ -30,7 +30,6 @@ TaskStories.args = {
         startDate: '5564',
         deadline: '5564',
         addedDate: '26.02.22',
-
     },
 };
 
