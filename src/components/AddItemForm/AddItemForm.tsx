@@ -1,62 +1,52 @@
-import React, { ChangeEvent, KeyboardEvent, useState } from 'react';
-import { IconButton, TextField } from "@material-ui/core";
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import {Box, Button, FormControl, IconButton, TextField} from '@material-ui/core';
+import {AddBox} from '@material-ui/icons';
 
 type AddItemFormPropsType = {
-    disabled?: boolean
     addItem: (title: string) => void
+    disabled?: boolean
 }
 
-const AddItemForm = React.memo((props: AddItemFormPropsType) => {
-    const [title, setTitle] = useState<string>("")
-    const [error, setError] = useState<null | string>(null)
+export const AddItemForm = React.memo(function({addItem, disabled = false}: AddItemFormPropsType) {
+    console.log("AddItemForm called")
 
-    const onChangeSetTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-        if (error) setError('')
-    }
-    const onClickAddItem = () => {
-        const trimmedTitle = title.trim()
-        if (trimmedTitle) {
-            props.addItem(trimmedTitle)
+    let [title, setTitle] = useState("")
+    let [error, setError] = useState<string | null>(null)
+
+    const addItemHandler = () => {
+        if (title.trim() !== "") {
+            addItem(title);
+            setTitle("");
         } else {
-            setError('error')
+            setError("Title is required");
         }
-        setTitle("")
     }
-    const onKeyPressAddItem = (e: KeyboardEvent<HTMLInputElement>) => {
+
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
+    }
+
+    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (error !== null) {
-            setError(null)
+            setError(null);
         }
-        if (e.key === 'Enter') {
-            onClickAddItem()
+        if (e.charCode === 13) {
+            addItemHandler();
         }
     }
 
-    return (
-        <div>
-            <TextField
-                size={'small'}
-                variant={'outlined'}
-                value={title}
-                onChange={onChangeSetTitle}
-                onKeyPress={onKeyPressAddItem}
-                label={'Title'}
-                helperText={error && 'Title is required!'}
-                disabled={props.disabled}
-            />
-            <IconButton
-                size={"medium"}
-                color={"primary"}
-                onClick={onClickAddItem}
-                disabled={props.disabled}
-            >
-                <AddCircleOutlineIcon />
-            </IconButton>
-
-        </div>
-    );
-}
-)
-
-export default AddItemForm;
+    return <div>
+        <TextField variant="outlined"
+                   disabled={disabled}
+                   error={!!error}
+                   value={title}
+                   onChange={onChangeHandler}
+                   onKeyPress={onKeyPressHandler}
+                   label="Title"
+                   helperText={error}
+        />
+        <IconButton color="primary" onClick={addItemHandler} disabled={disabled}>
+            <AddBox />
+        </IconButton>
+    </div>
+})
